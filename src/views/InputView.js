@@ -20,6 +20,12 @@ const InputView = {
 
     return { course, level, mission };
   },
+
+  async confirmationPrompt() {
+    const confirmation = await Console.readLineAsync(PROGRESS_MESSAGE.select_re_matching_or_no);
+
+    return confirmation;
+  },
 };
 
 export default InputView;

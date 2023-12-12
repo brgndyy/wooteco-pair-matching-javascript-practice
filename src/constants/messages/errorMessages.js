@@ -5,6 +5,7 @@ const ERROR_MESSAGES = deepFreeze({
   invalid_course: '코스 입력값이 존재하지 않아요 !',
   invalid_level: '레벨 입력값이 존재하지 않아요!',
   invalid_mission: '미션 입력값이 존재하지 않아요!',
+  invalid_response: '올바른 응답값을 입력해주세요!',
 });
 
 export default ERROR_MESSAGES;

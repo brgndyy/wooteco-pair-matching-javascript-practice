@@ -32,6 +32,12 @@ class Validator {
       throw new AppError(ERROR_MESSAGES.invalid_mission);
     }
   }
+
+  static validateYesOrNo(response) {
+    if (response !== CONDITION.yes && response !== CONDITION.no) {
+      throw new AppError(ERROR_MESSAGES.invalid_response);
+    }
+  }
 }
 
 export default Validator;
