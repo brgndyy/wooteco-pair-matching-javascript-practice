@@ -29,27 +29,40 @@ class App {
   }
 
   async #selectCourseAndLevelAndMission() {
-    this.#courseAndLevelAndMission = await InputView.selectCourseAndLevelAndMission();
-    Validator.validateCourseAndLevelAndMission(this.#courseAndLevelAndMission);
+    let rematch;
+    OutputView.printOriginalCourseAndMission();
 
+    do {
+      // eslint-disable-next-line no-await-in-loop
+      rematch = await this.#processCourseLevelMissionSelection();
+    } while (rematch);
+  }
+
+  async #processCourseLevelMissionSelection() {
+    await this.#getAndValidateCourseAndLevelAndMission();
     if (
       MatchingHistoryChecker.checkMatchingHistoryExists(
         this.#matchingHistory,
         this.#courseAndLevelAndMission,
-      ) &&
-      (await this.#askForReMatch())
-    )
-      return;
-
+      )
+    ) {
+      return this.#askForReMatch();
+    }
     OutputView.divideLine();
+    return false;
+  }
+
+  async #getAndValidateCourseAndLevelAndMission() {
+    this.#courseAndLevelAndMission = await InputView.selectCourseAndLevelAndMission();
+    Validator.validateCourseAndLevelAndMission(this.#courseAndLevelAndMission);
   }
 
   async #askForReMatch() {
-    OutputView.divideLine();
     const response = await asyncFunctionHandlerWithError(
       this.#confirmationPromptWithValidation,
       this,
     );
+    OutputView.divideLine();
     return response === CONDITION.no;
   }
 
